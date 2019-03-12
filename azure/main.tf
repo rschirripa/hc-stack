@@ -1,31 +1,4 @@
 ######### ######### ######### ######### ######### ######### ######### #########
-# V 0.7
-#
-variable "prefix" {
-  description = "interrupt-software"
-  default = "interrupt-software"
-}
-
-variable "location" {
-  description = "US East"
-  default = "eastus"
-}
-
-variable "tags" {
-  type        = "map"
-  default     = {
-                    environment = "Hashicorp Test",
-                    owner = "gcastill0"
-                }
-  description = "Basic tags"
-}
-
-######### ######### ######### ######### ######### ######### ######### #########
-
-# Azure Provider
-provider "azurerm" {
-  version = "=1.22.0"
-}
 
 resource "azurerm_resource_group" "main" {
   name     = "${var.prefix}"
@@ -102,6 +75,8 @@ resource "azurerm_virtual_machine" "main" {
             key_data = "${file("~/Hashicorp/my-infra/azure/.ssh/hcadmin_rsa.pub")}"
         }
     }
+
+    user_data = "${file("config/webuserdata.sh")}"
 
     tags = "${var.tags}"
 }
