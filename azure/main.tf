@@ -1,8 +1,8 @@
 ######### ######### ######### ######### ######### ######### ######### #########
 
 variable "prefix" {
-  description = "interrupt-test"
-  default = "interrupt-test"
+  description = "interrupt-software"
+  default = "interrupt-software"
 }
 
 variable "location" {
@@ -21,11 +21,11 @@ variable "tags" {
 
 ######### ######### ######### ######### ######### ######### ######### #########
 
-locals {
-  virtual_machine_name = "${var.prefix}-vm"
-  admin_username       = "testadmin"
-  admin_password       = "Password1234!"
-}
+# locals {
+#  virtual_machine_name = "${var.prefix}-vm"
+#  admin_username       = "testadmin"
+#  admin_password       = "Password1234!"
+#}
 
 # Azure Provider
 provider "azurerm" {
@@ -35,7 +35,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "main" {
-  name     = "${var.prefix}-resources"
+  name     = "${var.prefix}"
   location = "${var.location}"
   tags     = "${var.tags}"
 }
@@ -48,7 +48,7 @@ resource "azurerm_virtual_network" "main" {
   tags                = "${var.tags}"
 }
 
-resource "azurerm_subnet" "internal" {
+resource "azurerm_subnet" "main" {
   name                 = "internal"
   resource_group_name  = "${azurerm_resource_group.main.name}"
   virtual_network_name = "${azurerm_virtual_network.main.name}"
@@ -70,7 +70,7 @@ resource "azurerm_network_interface" "main" {
 
   ip_configuration {
     name                          = "configuration"
-    subnet_id                     = "${azurerm_subnet.internal.id}"
+    subnet_id                     = "${azurerm_subnet.main.id}"
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = "${azurerm_public_ip.main.id}"
   }
@@ -80,7 +80,7 @@ resource "azurerm_virtual_machine" "main" {
     name                  = "${var.prefix}-vm"
     location              = "${azurerm_resource_group.main.location}"
     resource_group_name   = "${azurerm_resource_group.main.name}"
-    network_interface_id  = "${azurerm_network_interface.main.id}"
+    network_interface_ids = ["${azurerm_network_interface.main.id}"]
     vm_size               = "Standard_DS1_v2"
 
     storage_os_disk {
