@@ -88,7 +88,7 @@ resource "azurerm_virtual_machine" "main" {
     storage_image_reference {
         publisher = "Canonical"
         offer     = "UbuntuServer"
-        sku       = "16.04.0-LTS"
+        sku       = "18.04.0-LTS"
         version   = "latest"
     }
 
@@ -101,7 +101,7 @@ resource "azurerm_virtual_machine" "main" {
         disable_password_authentication = true
         ssh_keys {
             path     = "/home/azureuser/.ssh/authorized_keys"
-            key_data = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDblYKh+ouJrYdbzm5gUe5LSpsITRjKTlbRKxBk1iIl3gY1XTUzQb6ixgZh3v+4x1kD6U4AzgpoDRA1xtEWqEWW4K5j9y4Sk/ig8SwwJgCE5T/zB8UJpH6mab5y1w+X/A1PCsAclLDHKFDaB07J2c/3WG6B1J49SY3Wqw41k5VBRs+ABUtDlUr0yqGDaP4WkFx+lfg7kN1CsQMsDmLMRgzj+ag/5ziqrZTTWkYrgVXnYXfvlz0ZiW7tInM8X+Em5AAC83X03f6fx0CYZDnfnabrzyCe7+nHN+ee7Qa2avQhyVN1TgHn5W3yUthqeLfSo6V+eXm3/kK657x2fio5ncd+2SoGfss6awCKVpSqW5sjzYtD9DKOh0NPt9uvlWLgd8a7Thk2b0m1W/qu4f2n5nHnMPdZ7n+Fvtw2j3NHjMPXlrOwpj1apRdQJiUakHoDX+/bkB4TOJgktWuxKbiUJV0u+dmgkS5cmIp5UGLZ+xlxlxT6SgUOfwfsU2jPvCpd6aNt0kQ2PAlGK7wUc8SRzj+oH4xpCN9XtncEiGsWjnB5gSBsnKaBbTFGZpuOuMDW155BfVPuQ1qIA7Dbi6zuphUcZYCf7mCec77c6Th/2mYIfhosDiQTmUBUBMtoYrW+9rwaPBKJBvHXXCNcl+hIGt8sGQjr7A1l7ZCCJf+e7AxAVw== azureuser"
+            key_data = "${file("~/Hashicorp/my-infra/azure/.ssh/azure_rsa.pub")}"
         }
     }
 
