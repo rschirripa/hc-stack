@@ -42,14 +42,14 @@ resource "azurerm_virtual_network" "main" {
 }
 
 resource "azurerm_subnet" "main" {
-  name                 = "internal"
+  name                 = "${var.prefix}-subnet"
   resource_group_name  = "${azurerm_resource_group.main.name}"
   virtual_network_name = "${azurerm_virtual_network.main.name}"
   address_prefix       = "10.0.2.0/24"
 }
 
 resource "azurerm_public_ip" "main" {
-  name                         = "${var.prefix}-publicip"
+  name                         = "${var.prefix}-vm-publicip"
   resource_group_name          = "${azurerm_resource_group.main.name}"
   location                     = "${azurerm_resource_group.main.location}"
   allocation_method = "Static"
@@ -57,7 +57,7 @@ resource "azurerm_public_ip" "main" {
 }
 
 resource "azurerm_network_interface" "main" {
-  name                = "${var.prefix}-nic"
+  name                = "${var.prefix}-vm-nic"
   location            = "${azurerm_resource_group.main.location}"
   resource_group_name = "${azurerm_resource_group.main.name}"
 
@@ -77,7 +77,7 @@ resource "azurerm_virtual_machine" "main" {
     vm_size               = "Standard_B1ms"
 
     storage_os_disk {
-        name              = "${var.prefix}-disk"
+        name              = "${var.prefix}-vm-disk"
         caching           = "ReadWrite"
         create_option     = "FromImage"
         managed_disk_type = "Premium_LRS"
