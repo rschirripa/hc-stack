@@ -21,12 +21,6 @@ variable "tags" {
 
 ######### ######### ######### ######### ######### ######### ######### #########
 
-# locals {
-#  virtual_machine_name = "${var.prefix}-vm"
-#  admin_username       = "testadmin"
-#  admin_password       = "Password1234!"
-#}
-
 # Azure Provider
 provider "azurerm" {
   version = "=1.22.0"
@@ -84,7 +78,7 @@ resource "azurerm_virtual_machine" "main" {
     vm_size               = "Standard_DS1_v2"
 
     storage_os_disk {
-        name              = "myOsDisk"
+        name              = "${var.prefix}-disk"
         caching           = "ReadWrite"
         create_option     = "FromImage"
         managed_disk_type = "Premium_LRS"
