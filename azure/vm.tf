@@ -1,26 +1,5 @@
 ######### ######### ######### ######### ######### ######### ######### #########
 
-resource "azurerm_resource_group" "main" {
-  name     = "${var.prefix}"
-  location = "${var.location}"
-  tags     = "${var.tags}"
-}
-
-resource "azurerm_virtual_network" "main" {
-  name                = "${var.prefix}-network"
-  address_space       = ["10.0.0.0/16"]
-  location            = "${azurerm_resource_group.main.location}"
-  resource_group_name = "${azurerm_resource_group.main.name}"
-  tags                = "${var.tags}"
-}
-
-resource "azurerm_subnet" "main" {
-  name                 = "${var.prefix}-subnet"
-  resource_group_name  = "${azurerm_resource_group.main.name}"
-  virtual_network_name = "${azurerm_virtual_network.main.name}"
-  address_prefix       = "10.0.2.0/24"
-}
-
 resource "azurerm_public_ip" "main" {
   name                = "${var.prefix}-vm-public-ip"
   resource_group_name = "${azurerm_resource_group.main.name}"
@@ -49,24 +28,25 @@ resource "azurerm_virtual_machine" "main" {
   network_interface_ids = ["${azurerm_network_interface.main.id}"]
   vm_size               = "Standard_B1ms"
 
-  #    user_data = "${file("config/webconfig.sh")}"
-
   storage_os_disk {
     name              = "${var.prefix}-vm-disk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Premium_LRS"
   }
+
   storage_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
     sku       = "18.04-LTS"
     version   = "latest"
   }
+
   os_profile {
     computer_name  = "${var.prefix}-vm"
     admin_username = "hcadmin"
   }
+
   os_profile_linux_config {
     disable_password_authentication = true
 
@@ -75,6 +55,7 @@ resource "azurerm_virtual_machine" "main" {
       key_data = "${file(".ssh/hcadmin_rsa.pub")}"
     }
   }
+
   tags = "${var.tags}"
 }
 
