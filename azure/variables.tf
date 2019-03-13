@@ -2,20 +2,22 @@
 # V 0.7
 #
 variable "prefix" {
-  description = "interrupt-software"
-  default = "interrupt-software"
+  description = "Interrupt Software"
+  default     = "interrupt-software"
 }
 
 variable "location" {
   description = "US East"
-  default = "eastus"
+  default     = "eastus"
 }
 
 variable "tags" {
-  type        = "map"
-  default     = {
-                    environment = "Hashicorp Test",
-                    owner = "gcastill0"
-                }
+  type = "map"
+
+  default = {
+    environment = "Hashicorp Test"
+    owner       = "gcastill0"
+  }
+
   description = "Basic tags"
 }
