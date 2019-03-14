@@ -7,8 +7,8 @@ variable "prefix" {
 }
 
 variable "location" {
-  description = "US East"
-  default     = "eastus"
+  description = "Canada East"
+  default     = "canadaeast"
 }
 
 variable "tags" {
