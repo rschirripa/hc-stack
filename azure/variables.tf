@@ -11,8 +11,8 @@ variable "node_no" {
 }
 
 variable "location" {
-  description = "Canada East"
-  default     = "canadaeast"
+  description = "East US"
+  default     = "eastus"
 }
 
 variable "tags" {

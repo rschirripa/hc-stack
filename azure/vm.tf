@@ -22,7 +22,7 @@ resource "azurerm_virtual_machine" "main" {
   }
 
   os_profile {
-    computer_name  = "${var.prefix}-vm-osdisk"
+    computer_name  = "${var.prefix}-vm${var.node_no}"
     admin_username = "hcadmin"
   }
 
