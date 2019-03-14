@@ -6,10 +6,6 @@ variable "prefix" {
   default     = "interrupt-software"
 }
 
-variable "node_no" {
-  default = "1"
-}
-
 variable "location" {
   description = "East US"
   default     = "eastus"

@@ -1,7 +1,8 @@
 ######### ######### ######### ######### ######### ######### ######### #########
 
 resource "azurerm_virtual_machine" "main" {
-  name                  = "${var.prefix}-vm${var.node_no}"
+  count                 = 1                                         # create four similar vms
+  name                  = "${var.prefix}-vm${count.index}"
   location              = "${azurerm_resource_group.main.location}"
   resource_group_name   = "${azurerm_resource_group.main.name}"
   network_interface_ids = ["${azurerm_network_interface.main.id}"]
@@ -22,7 +23,7 @@ resource "azurerm_virtual_machine" "main" {
   }
 
   os_profile {
-    computer_name  = "${var.prefix}-vm${var.node_no}"
+    computer_name  = "${var.prefix}-vm${count.index}"
     admin_username = "hcadmin"
   }
 
