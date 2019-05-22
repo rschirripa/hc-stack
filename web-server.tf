@@ -11,7 +11,7 @@ resource "azurerm_virtual_machine_extension" "CustomExtension-basicLinuxBackEnd"
 
   settings = <<SETTINGS
        {
-        "fileUris" : ["https://raw.githubusercontent.com/gcastill0/hc-stack/master/azure/config/webconfig.sh" ],
+        "fileUris" : ["https://raw.githubusercontent.com/gcastill0/hc-stack/master/config/webconfig.sh" ],
         "commandToExecute": "bash webconfig.sh"
         }
   SETTINGS
