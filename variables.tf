@@ -15,7 +15,7 @@ variable "tags" {
   type = "map"
 
   default = {
-    environment = "Hashicorp Test"
+    environment = "IS Test"
     owner       = "gcastill0"
   }
 
