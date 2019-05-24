@@ -3,7 +3,7 @@
 #
 variable "prefix" {
   description = "Interrupt Software"
-  default     = "watserv"
+  default     = "gcastill0"
 }
 
 variable "location" {
