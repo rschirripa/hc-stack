@@ -1,4 +1,4 @@
 # Azure Provider
 provider "azurerm" {
-  version = "=1.22.0"
+  version = "=1.28.0"
 }
