@@ -3,7 +3,7 @@
 #
 variable "prefix" {
   description = "Interrupt Software"
-  default     = "gcastill0"
+  default     = "raff_demo1"
 }
 
 variable "location" {
@@ -16,8 +16,11 @@ variable "tags" {
 
   default = {
     environment = "IS Test"
-    owner       = "gcastill0"
+    owner       = "rschirripa"
+    expiry	= "1 day"
   }
+
+
 
   description = "Basic tags"
 }
